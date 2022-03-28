@@ -1,6 +1,119 @@
-/* Our CSS file. */
-
-
 .container, .content {
 width: 100%;
+}
+
+body{
+    /* margin: 0; */
+    /* padding: 0; */
+    box-sizing: border-box;
+    font-size: medium; 
+    background-color: grey;
+    color: black; 
+    font-weight: 5%;
+    /* text-align: center; */
+}
+
+
+.dom-form{
+    padding: 1%;
+}
+
+.dom-form , .dom-form>* {
+    border-radius: 10px;
+    /* background-color: palevioletred; */
+}
+
+
+.info{
+    padding: 1rem;
+    /* in one line */
+    display: flex; 
+}
+
+.char-label , .thread-label{ 
+    padding: 5px;
+    font-weight: bolder;
+    /* display: inline-flex; */
+    text-align: center;
+}
+
+.char-count , .thread-count{
+    font-weight: bolder; 
+    padding: 1px;   
+}
+
+/* .info > .char-count , .thread-count{
+    font-weight: bolder;
+    display: block;
+} */
+
+.outer{
+    width: 90%;
+    max-width: 70%;
+    min-height: 15rem;
+    padding: 2%;
+    margin: 5% auto;
+    /* background-color: antiquewhite; */
+    background-color: rgb(194, 179, 209);
+    /* border-radius: 10px solid black; */
+    border-radius: 10px;
+    /* display: grid; */
+    gap: 2%;
+    /* display:flex; */
+    flex-direction: row;
+    
+}
+
+/*  about TEXTAREA CONTAINER */
+
+.text-container>*{
+    border-radius: 10px;
+    /* background-color: palevioletred; */
+    
+}
+
+.text-area{
+    width: 100%;
+    /* width: auto; */
+    min-height: 20rem;
+    padding: 15px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+    line-height: 20px;
+    border: 1px solid black;
+}
+
+.btn{
+    width: 113%;
+    margin-top: 1%;
+    display: block;
+    background-color: rgb(157, 157, 245);
+    padding: 10px ;
+    border: 0;
+    font-weight: bolder;
+    font-size: medium;
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
+}
+
+.thread-container{
+    width: 50%;
+    float: right;
+    margin-right: 0%;
+    line-height: 20px;
+    background-color: whitesmoke;
+    min-height: 20rem;
+    padding: 15px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+    line-height: 20px;
+    border-radius: 5px;
+    max-width: 70%;
+    min-height: 30rem;
+}
+
+.dom-form , .thread-container{ 
+    display: inline-block;
 }

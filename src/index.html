@@ -12,6 +12,38 @@
 	<div id="container">
 
 	<!-- Start your code from here -->
+
+	<div class="outer">
+		
+        <form action="" class="dom-form">
+            <div class="info">
+                <p>
+                    <label class="char-label">Characters : </label>
+                    <span class="char-count">00</span>
+                </p>
+                <p>
+                    <label class="thread-label">Threads : </label>
+                    <span class="thread-count">00</span>
+                </p>
+            </div>
+
+            <div class="text-container">
+                <textarea class="text-area" placeholder="The character limit for each thread is 275" required
+                    wrap="soft" onkeyup="textInfo(this);"></textarea>
+                <button type="submit" class="btn">Thread</button>
+            </div>
+        </form>
+
+        <div class="thread-container">
+            <div class="thread">
+                <p class="para"><br>
+                    Your threads will be here...<br>
+                    The character limit for each thread is 275.<br>
+                </p>
+            </div>
+        </div>
+
+    </div>
 	
 
 	<!-- End your code -->
@@ -19,6 +51,106 @@
 	</div>
 
 	<script type="text/javascript">
+
+				
+		const dom = (e) => document.querySelector(e);
+		const form = dom('.dom-form');
+		const character_Count = dom('.char-count');
+		const thread_count = dom('.thread-count');
+		const threadContainer = dom('.thread-container');
+		const max_size_of_text = 275;
+		const threadArray = [];
+
+		// function for counting character
+		function textInfo(obj)
+		{
+			let length = obj.value.length;
+			character_Count.innerHTML = length;
+			thread_count.innerHTML = Math.ceil(length/max_size_of_text);
+
+			length > max_size_of_text ?(obj.style.color='red') : (obj.style.color="black");
+			// if length is greater then text clor will be change from black to red
+		}
+				
+		// function for thread
+		function displayThread(listParent ,arr=[])
+		{
+			listParent.innerHTML=arr.map((el , i)=>
+			{
+				return 
+				`
+				<article class='thread' data-index="${i}">
+					<div class="tools">
+						<span class="index"> ${i<9? '0'+(i+1) : i+1}</span>
+						<span class='close' data-index="${i}">X</span>
+					</div>
+					<p class='thread-str'>${el}</p>
+				</article>
+				`;
+			}).join("")
+		}
+
+		function cleanThread(str)
+		{
+			let split_with_white_space = str.split(' ');
+			let res = [];
+			total_length = 0;
+			let sentences = '';
+
+			for(let i=0 ; i<split_with_white_space.length ; i++)
+			{
+				let current_Word = split_with_white_space[i];
+				let current_Word_length = current_Word.length;
+
+				//build sentences
+				sentences += current_Word + ' ';
+				total_length += current_Word_length + 1;
+
+				if(total_length >= size)
+				{
+					sentences = sentences.trim();
+					let length_Diff = sentences.length - size ; 
+					//check if a word needs to be dropped
+					if(length_Diff > 0)
+					{
+						let last_Index_of_white_space = sentences.lastIndexOf(' ');
+						sentences = sentences.slice(0,last_Index_of_white_space);
+						i--
+					}
+					res.push(sentences);
+					total_length = 0;
+					sentences = '';
+				}
+				if(i == split_with_white_space.length-1 && total_length<=size && sentences !=='')
+				{
+					res.push(sentences.trim());
+				}
+			}
+			return res;
+		}
+
+		function thread(e){
+			e.preventDefault();
+			const thread = dom('.thread');
+			threadArray = cleanThread(dom('.text-area').value);
+			displayThread(threadContainer,threadArray);
+
+		}
+		// adding event
+		form.addEventListener("click",thread);
+ 
+		function deleteThread(e)
+		{
+			e.preventDefault();
+			const [el,index] = [e.target , e.target.dataset.index];
+			let text = e.target.dataset.para;
+			if(el.classList.contains('close'))
+			{
+				threadArray.splice(index,1);
+				displayThread(threadContainer , threadArray);
+			} 
+		}
+		threadContainer.addEventListener("click",deleteThread);
 
 	</script>
 
